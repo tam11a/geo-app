@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import theme from "../styles/theme/theme";
 
 const mapboxgl = require("mapbox-gl/dist/mapbox-gl.js");
 mapboxgl.accessToken =
@@ -6,6 +7,9 @@ mapboxgl.accessToken =
 
 const MapBoxHere = () => {
   const [pageIsMounted, setPageIsMounted] = useState(false);
+  const [location, setLocation] = useState([
+    90.38158421652125, 23.753093703175455,
+  ]);
 
   useEffect(() => {
     setPageIsMounted(true);
@@ -13,7 +17,19 @@ const MapBoxHere = () => {
       container: "my-map",
       style: "mapbox://styles/tam11a/ckzveakco00uw14rw8yzx9au2",
     });
-  }, []);
+
+    const marker = new mapboxgl.Marker({
+      color: theme.palette.primary.main,
+      // draggable: true,
+    })
+      .setLngLat(location)
+      .addTo(map);
+
+    const nav = new mapboxgl.NavigationControl({
+      visualizePitch: true,
+    });
+    map.addControl(nav, "top-right");
+  }, [location]);
 
   return (
     <div
