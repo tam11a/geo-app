@@ -3,8 +3,8 @@ import ReactMapGL from "react-map-gl";
 
 export default function Map() {
   const [viewport, setViewport] = useState({
-    width: "100%",
-    height: "100%",
+    width: "100px",
+    height: "100px",
     // The latitude and longitude of the center of London
     latitude: 51.5074,
     longitude: -0.1278,
@@ -13,7 +13,9 @@ export default function Map() {
   return (
     <ReactMapGL
       mapStyle="mapbox://styles/mapbox/streets-v11"
-      mapboxApiAccessToken={process.env.MAPBOX_KEY}
+      mapboxApiAccessToken={
+        "pk.eyJ1IjoidGFtMTFhIiwiYSI6ImNrenEzOTQxeTA1MDQydW85enRvb2h5MmsifQ.neUR9ekfXCBsAYwGeg_3EA"
+      }
       {...viewport}
       onViewportChange={(nextViewport) => setViewport(nextViewport)}
     ></ReactMapGL>

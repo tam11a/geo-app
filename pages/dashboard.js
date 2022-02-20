@@ -5,7 +5,7 @@ import { AiOutlineUser } from "react-icons/ai";
 import { GiCargoCrane } from "react-icons/gi";
 import dynamic from "next/dynamic";
 
-const Map = dynamic(() => import("../components/Map"), {
+const Map = dynamic(() => import("../components/MapBoxHere"), {
   loading: () => "Loading...",
   ssr: false,
 });
@@ -14,7 +14,7 @@ export default function Dashboard() {
   return (
     <>
       <Stack direction="column" sx={{ minHeight: "100vh" }}>
-        <Box flexGrow={1}>
+        <Box flexGrow={1} sx={{ position: "relative" }}>
           <Map />
         </Box>
         <Stack
