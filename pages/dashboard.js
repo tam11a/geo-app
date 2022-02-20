@@ -3,6 +3,7 @@ import { MdMyLocation } from "react-icons/md";
 import { HiOutlineMenuAlt3 } from "react-icons/hi";
 import { AiOutlineUser } from "react-icons/ai";
 import { GiCargoCrane } from "react-icons/gi";
+import dynamic from "next/dynamic";
 
 const Map = dynamic(() => import("../components/Map"), {
   loading: () => "Loading...",
@@ -13,7 +14,9 @@ export default function Dashboard() {
   return (
     <>
       <Stack direction="column" sx={{ minHeight: "100vh" }}>
-        <Box flexGrow={1}>Map Box</Box>
+        <Box flexGrow={1}>
+          <Map />
+        </Box>
         <Stack
           flexDirection={"row"}
           spacing={0.5}

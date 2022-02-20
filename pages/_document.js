@@ -13,15 +13,19 @@ class MyDocument extends Document {
       <Html>
         <Head>
           <link rel="preconnect" href="https://fonts.googleapis.com" />
-          <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+          <link
+            rel="preconnect"
+            href="https://fonts.gstatic.com"
+            crossOrigin="true"
+          />
           <link
             href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600&display=swap"
             rel="stylesheet"
           />
-          <title>Track GEO</title>
-          <meta
-            name="viewport"
-            content="initial-scale=1.0, width=device-width"
+          {/* <title>Track GEO</title> */}
+          <link
+            href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css"
+            rel="stylesheet"
           />
           <link rel="shortcut icon" href="CAT.svg" type="image/x-icon" />
         </Head>
