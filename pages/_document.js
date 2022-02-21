@@ -27,7 +27,14 @@ class MyDocument extends Document {
             href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css"
             rel="stylesheet"
           />
+          <meta name="theme-color" content="#282c34" />
+          <link rel="manifest" href="manifest.json" />
           <link rel="shortcut icon" href="CAT.svg" type="image/x-icon" />
+          <link
+            rel="manifest"
+            href="manifest.webmanifest"
+            crossOrigin="use-credentials"
+          />
         </Head>
         <body>
           <Box
