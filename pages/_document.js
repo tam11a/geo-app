@@ -29,6 +29,7 @@ class MyDocument extends Document {
           />
           <meta name="theme-color" content="#282c34" />
           <link rel="manifest" href="manifest.json" />
+          <link rel="apple-touch-icon" href="CAT.svg" />
           <link rel="shortcut icon" href="CAT.svg" type="image/x-icon" />
           <link
             rel="manifest"
