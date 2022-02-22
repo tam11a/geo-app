@@ -1,11 +1,19 @@
-import { Box, IconButton, InputBase, Stack, Tooltip } from "@mui/material";
+import {
+  Box,
+  Button,
+  IconButton,
+  InputBase,
+  Stack,
+  Tooltip,
+} from "@mui/material";
 import { MdMyLocation } from "react-icons/md";
 import { HiOutlineMenuAlt3 } from "react-icons/hi";
 import { AiOutlineUser } from "react-icons/ai";
+import { SiHashnode } from "react-icons/si";
 import { GiCargoCrane } from "react-icons/gi";
 import dynamic from "next/dynamic";
 
-const Map = dynamic(() => import("../components/MapBoxHere"), {
+const Map = dynamic(() => import("../components/MapBoxHereRMGL"), {
   loading: () => "Loading...",
   ssr: false,
 });
@@ -27,7 +35,7 @@ export default function Dashboard() {
             py: 1,
           }}
         >
-          <Tooltip title="User Name">
+          {/* <Tooltip title="User Name">
             <InputBase
               startAdornment={
                 <AiOutlineUser color={"#999"} style={{ marginRight: 10 }} />
@@ -35,6 +43,15 @@ export default function Dashboard() {
               placeholder="Rudolf Tam"
               sx={{ flex: 1 }}
             />
+          </Tooltip> */}
+          <Tooltip title="Vehicle ID">
+            <Button
+              startIcon={<SiHashnode />}
+              sx={{ justifyContent: "flex-start", pl: 2 }}
+              fullWidth
+            >
+              ab102312389
+            </Button>
           </Tooltip>
           <Tooltip title="Share My Location">
             <IconButton color="primary">
