@@ -1,17 +1,57 @@
 import { useEffect, useState } from "react";
 import theme from "../styles/theme/theme";
-import Map, { Layer, Marker, Source } from "react-map-gl";
+import ReactMapGL, {
+  Layer,
+  Marker,
+  NavigationControl,
+  Source,
+} from "react-map-gl";
 import MarkerPin from "./MarkerPin";
+import BottomDrawer from "./BottomDrawer";
+import { DEFAULT_VIEWPORT } from "../utilities/constants";
 
 const MapBoxHere = () => {
-  const [coordinates, setCoordinates] = useState([
-    [-121.415061, 40.506229],
-    [-121.354465, 40.488737],
-    [-121.505184, 40.488084],
-  ]);
+  const [coordinates, setCoordinates] = useState([]);
+  const [viewport, setViewport] = useState(DEFAULT_VIEWPORT);
 
-  const [geoList, setGeoList] = useState([]);
+  const [geoList, setGeoList] = useState({
+    type: "FeatureCollection",
+    features: [
+      {
+        type: "Feature",
+        geometry: {
+          type: "LineString",
+          coordinates: [],
+        },
+      },
+    ],
+  });
+  const [resList, setResList] = useState([]);
+
+  useEffect(async () => {
+    const res = await fetch("/api/dummy");
+    const data = await res.json();
+    setResList(data.geolist);
+  }, []);
+
   useEffect(() => {
+    if (!!!resList.length) return;
+
+    let coorList = [];
+    for (const i in resList) {
+      coorList.push(resList[i].coordinates);
+    }
+    setCoordinates(coorList);
+  }, [resList]);
+
+  useEffect(() => {
+    if (!!!coordinates.length) return;
+    // console.log(coordinates);
+    setViewport({
+      ...viewport,
+      longitude: coordinates[coordinates.length - 1][0],
+      latitude: coordinates[coordinates.length - 1][1],
+    });
     setGeoList({
       type: "FeatureCollection",
       features: [
@@ -27,57 +67,57 @@ const MapBoxHere = () => {
   }, [coordinates]);
 
   return (
-    <Map
-      initialViewState={{
-        longitude: coordinates[0][0],
-        latitude: coordinates[0][1],
-        zoom: 12,
-      }}
-      style={{ position: "absolute", height: "100%", width: "100%" }}
-      mapStyle="mapbox://styles/tam11a/ckzveakco00uw14rw8yzx9au2"
-      mapboxAccessToken="pk.eyJ1IjoidGFtMTFhIiwiYSI6ImNrenEzOTQxeTA1MDQydW85enRvb2h5MmsifQ.neUR9ekfXCBsAYwGeg_3EA"
-    >
-      <Source id="polylineLayer" type="geojson" data={geoList}>
-        <Layer
-          id="lineLayer"
-          type="line"
-          source="tracks"
-          layout={{
-            "line-join": "round",
-            "line-cap": "round",
-          }}
-          paint={{
-            "line-color": theme.palette.primary.light,
-            "line-width": 0.5,
-          }}
-        />
-      </Source>
-      {coordinates?.map((coordinate, index) => (
-        <AddMarker
-          longitude={coordinate[0]}
-          latitude={coordinate[1]}
-          description={"Hello World"}
-          key={index}
-        />
-      ))}
-    </Map>
+    coordinates.length && (
+      <ReactMapGL
+        initialViewState={{
+          ...viewport,
+          longitude: coordinates[coordinates.length - 1][0],
+          latitude: coordinates[coordinates.length - 1][1],
+        }}
+        style={{ position: "absolute", height: "100%", width: "100%" }}
+        mapStyle="mapbox://styles/tam11a/ckzveakco00uw14rw8yzx9au2"
+        mapboxAccessToken="pk.eyJ1IjoidGFtMTFhIiwiYSI6ImNrenEzOTQxeTA1MDQydW85enRvb2h5MmsifQ.neUR9ekfXCBsAYwGeg_3EA"
+        attributionControl={false}
+        // {...viewport}
+        // viewState={viewport}
+      >
+        <Source id="polylineLayer" type="geojson" data={geoList}>
+          <Layer
+            id="lineLayer"
+            type="line"
+            source="tracks"
+            layout={{
+              "line-join": "round",
+              "line-cap": "round",
+            }}
+            paint={{
+              "line-color": theme.palette.primary.light,
+              "line-width": 0.5,
+            }}
+          />
+        </Source>
+        {resList?.map(
+          (res, index) => res && <AddMarker data={res} key={index} />
+        )}
+        <NavigationControl />
+      </ReactMapGL>
+    )
   );
 };
 
-const AddMarker = ({ longitude, latitude, description }) => {
+const AddMarker = ({ data }) => {
+  const [drawer, setDrawer] = useState(false);
+
   return (
     <>
       <Marker
-        longitude={longitude}
-        latitude={latitude}
+        longitude={data.coordinates[0]}
+        latitude={data.coordinates[1]}
         color={theme.palette.primary.main}
       >
-        <MarkerPin
-          onClick={() => {
-            alert(description);
-          }}
-        />
+        <MarkerPin onClick={() => setDrawer(true)} />
       </Marker>
+      <BottomDrawer drawer={drawer} setDrawer={setDrawer} data={data} />
     </>
   );
 };

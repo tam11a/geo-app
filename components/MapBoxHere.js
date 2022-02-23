@@ -36,23 +36,13 @@ const MapBoxHere = () => {
       zoom: 12,
     });
 
-    /*const marker = new mapboxgl.Marker({
-      color: theme.palette.primary.main,
-      // draggable: true,
-    })
-      .setLngLat(location)
-      .addTo(map);*/
-
-    /*const featureLayer = new mapboxgl.mapbox.featureLayer()
-      .setGeoJSON(geoList)
-      .addTo(map);*/
-
     map.addControl(
       new mapboxgl.NavigationControl({
         visualizePitch: true,
       }),
       "top-right"
     );
+
     map.once("load", () => {
       // start onload
 

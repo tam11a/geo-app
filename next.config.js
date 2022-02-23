@@ -6,6 +6,7 @@ module.exports = withPWA({
     dest: "public",
     register: true,
     skipWaiting: true,
+    mode: "production",
   },
   env: {
     MAPBOX_KEY:

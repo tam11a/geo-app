@@ -22,7 +22,15 @@ export default function Dashboard() {
   return (
     <>
       <Stack direction="column" sx={{ minHeight: "100vh" }}>
-        <Box flexGrow={1} sx={{ position: "relative" }}>
+        <Box
+          flexGrow={1}
+          sx={{
+            position: "relative",
+            "& a.mapboxgl-ctrl-logo": {
+              display: "none",
+            },
+          }}
+        >
           <Map />
         </Box>
         <Stack
