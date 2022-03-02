@@ -4,25 +4,25 @@ import { getDB, pushDB } from "./db";
 import io from "socket.io-client";
 let socket;
 
-socket = io("http://websocket-any.herokuapp.com/");
+/*socket = io("http://websocket-any.herokuapp.com/");
 
 socket.on("connect", () => {
   console.log("connected");
-});
+});*/
 
 export default async function handler(req, res) {
   //console.log(req.query);
   if (req.query.lng && req.query.lat && req.query.eval) {
     const data = {
       coordinates: [parseFloat(req.query.lng), parseFloat(req.query.lat)],
-      evalution: parseFloat(req.query.eval),
+      evalution: req.query.eval,
     };
     pushDB(data);
-    socket.emit("geoapp", {
+    /*socket.emit("geoapp", {
       coordinates: [parseFloat(req.query.lng), parseFloat(req.query.lat)],
       evalution: parseFloat(req.query.eval),
       ts: Date.now(),
-    });
+    });*/
     res.status(200).json({ status: "success", ts: Date.now() });
   } else {
     res.status(200).json({

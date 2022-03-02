@@ -127,10 +127,7 @@ const BottomDrawer = ({ drawer, setDrawer, data }) => {
           <IconButton color={"primary"} sx={{ mr: 1 }}>
             <MdOutlineHeight />
           </IconButton>
-          <ListItemText
-            primary={"Evalution"}
-            secondary={`${data.evalution.toFixed(2)} m`}
-          />
+          <ListItemText primary={"Evalution"} secondary={`${data.evalution}`} />
         </ListItemButton>
       </List>
     </Drawer>

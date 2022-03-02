@@ -77,7 +77,7 @@ const MapBoxHere = ({ refresh, setRefresh }) => {
     });
   }, [coordinates]);
 
-  useEffect(() => socketInitializer(), []);
+  /*useEffect(() => socketInitializer(), []);
 
   const socketInitializer = async () => {
     socket = io("http://websocket-any.herokuapp.com/");
@@ -89,7 +89,7 @@ const MapBoxHere = ({ refresh, setRefresh }) => {
     socket.on("geoapp", (msg) => {
       fetchData();
     });
-  };
+  };*/
 
   return (
     coordinates.length && (
