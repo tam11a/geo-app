@@ -9,10 +9,10 @@ import ReactMapGL, {
 import MarkerPin from "./MarkerPin";
 import BottomDrawer from "./BottomDrawer";
 import { DEFAULT_VIEWPORT } from "../utilities/constants";
-/*
+
 import io from "Socket.IO-client";
 let socket;
-*/
+
 const MapBoxHere = () => {
   const [coordinates, setCoordinates] = useState([]);
   const [viewport, setViewport] = useState(DEFAULT_VIEWPORT);
@@ -30,19 +30,18 @@ const MapBoxHere = () => {
       },
     ],
   });
-
+  async function fetchData() {
+    const res = await fetch("/api/dummy");
+    const data = await res.json();
+    setResList(data.geolist);
+  }
   useEffect(() => {
-    async function fetchData() {
-      const res = await fetch("/api/dummy");
-      const data = await res.json();
-      setResList(data.geolist);
-    }
     fetchData();
   }, []);
 
   useEffect(() => {
     // if(!!!resList)
-    //console.log(resList);
+    console.log(resList);
     if (!!!resList.length) return;
 
     let coorList = [];
@@ -73,21 +72,20 @@ const MapBoxHere = () => {
       ],
     });
   }, [coordinates]);
-  /*
+
   useEffect(() => socketInitializer(), []);
 
   const socketInitializer = async () => {
-    await fetch("/api/socket");
-    socket = io();
+    socket = io("http://websocket-any.herokuapp.com/");
 
     socket.on("connect", () => {
       console.log("connected");
     });
 
-    socket.on("update-input", (msg) => {
-      console.log(msg);
+    socket.on("geoapp", (msg) => {
+      fetchData();
     });
-  };*/
+  };
 
   return (
     coordinates.length && (
@@ -101,7 +99,8 @@ const MapBoxHere = () => {
         mapStyle="mapbox://styles/tam11a/ckzveakco00uw14rw8yzx9au2"
         mapboxAccessToken="pk.eyJ1IjoidGFtMTFhIiwiYSI6ImNrenEzOTQxeTA1MDQydW85enRvb2h5MmsifQ.neUR9ekfXCBsAYwGeg_3EA"
         attributionControl={false}
-        // {...viewport}
+        {...viewport}
+        onMove={(evt) => setViewport(evt.viewState)}
         // viewState={viewport}
       >
         <Source id="polylineLayer" type="geojson" data={geoList}>

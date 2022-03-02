@@ -1,6 +1,14 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
 import { getDB, pushDB } from "./db";
+import io from "Socket.IO-client";
+let socket;
+
+socket = io("http://websocket-any.herokuapp.com/");
+
+socket.on("connect", () => {
+  console.log("connected");
+});
 
 export default async function handler(req, res) {
   //console.log(req.query);
@@ -10,11 +18,11 @@ export default async function handler(req, res) {
       evalution: parseFloat(req.query.eval),
     };
     pushDB(data);
-    // socket.emit("getData", {
-    //   coordinates: [parseFloat(req.query.lng), parseFloat(req.query.lat)],
-    //   evalution: parseFloat(req.query.eval),
-    //   ts: Date.now(),
-    // });
+    socket.emit("geoapp", {
+      coordinates: [parseFloat(req.query.lng), parseFloat(req.query.lat)],
+      evalution: parseFloat(req.query.eval),
+      ts: Date.now(),
+    });
     res.status(200).json({ status: "success", ts: Date.now() });
   } else {
     res.status(200).json({
