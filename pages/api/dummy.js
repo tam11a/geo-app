@@ -4,7 +4,7 @@ import { getDB, pushDB } from "./db";
 import io from "socket.io-client";
 let socket;
 
-socket = io("http://websocket-any.herokuapp.com/");
+socket = io("https://websocket-any.herokuapp.com/");
 
 socket.on("connect", () => {
   console.log("connected");

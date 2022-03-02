@@ -76,7 +76,7 @@ const MapBoxHere = () => {
   useEffect(() => socketInitializer(), []);
 
   const socketInitializer = async () => {
-    socket = io("http://websocket-any.herokuapp.com/");
+    socket = io("https://websocket-any.herokuapp.com/");
 
     socket.on("connect", () => {
       console.log("connected");
