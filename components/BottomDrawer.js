@@ -14,14 +14,7 @@ import {
 } from "@mui/material";
 import React from "react";
 
-import {
-  MdClose,
-  MdMyLocation,
-  MdOutlineCreateNewFolder,
-  MdOutlineHeight,
-} from "react-icons/md";
-import { FiUser } from "react-icons/fi";
-import handleSubmit from "../utilities/handleSubmit";
+import { MdClose, MdMyLocation, MdOutlineHeight } from "react-icons/md";
 import theme from "../styles/theme/theme";
 import { SiOpenstreetmap } from "react-icons/si";
 
@@ -66,7 +59,7 @@ const BottomDrawer = ({ drawer, setDrawer, data }) => {
               "Oct",
               "Nov",
               "Dec",
-            ][new Date(data.ts).getMonth() - 1]
+            ][new Date(data.ts).getMonth()]
           }{" "}
           {new Date(data.ts).getFullYear()} || {new Date(data.ts).getHours()}:
           {new Date(data.ts).getMinutes()}

@@ -9,10 +9,14 @@ import ReactMapGL, {
 import MarkerPin from "./MarkerPin";
 import BottomDrawer from "./BottomDrawer";
 import { DEFAULT_VIEWPORT } from "../utilities/constants";
-
+/*
+import io from "Socket.IO-client";
+let socket;
+*/
 const MapBoxHere = () => {
   const [coordinates, setCoordinates] = useState([]);
   const [viewport, setViewport] = useState(DEFAULT_VIEWPORT);
+  const [resList, setResList] = useState([]);
 
   const [geoList, setGeoList] = useState({
     type: "FeatureCollection",
@@ -26,7 +30,6 @@ const MapBoxHere = () => {
       },
     ],
   });
-  const [resList, setResList] = useState([]);
 
   useEffect(async () => {
     const res = await fetch("/api/dummy");
@@ -35,6 +38,8 @@ const MapBoxHere = () => {
   }, []);
 
   useEffect(() => {
+    // if(!!!resList)
+    //console.log(resList);
     if (!!!resList.length) return;
 
     let coorList = [];
@@ -65,6 +70,21 @@ const MapBoxHere = () => {
       ],
     });
   }, [coordinates]);
+  /*
+  useEffect(() => socketInitializer(), []);
+
+  const socketInitializer = async () => {
+    await fetch("/api/socket");
+    socket = io();
+
+    socket.on("connect", () => {
+      console.log("connected");
+    });
+
+    socket.on("update-input", (msg) => {
+      console.log(msg);
+    });
+  };*/
 
   return (
     coordinates.length && (
