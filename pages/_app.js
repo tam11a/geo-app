@@ -8,10 +8,6 @@ function MyApp({ Component, pageProps }) {
     <ThemeProvider theme={theme}>
       <Head>
         <meta charSet="utf-8" />
-        <meta
-          httpEquiv="Content-Security-Policy"
-          content="upgrade-insecure-requests"
-        />
         <title>Track GEO</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>

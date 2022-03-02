@@ -20,7 +20,7 @@ const Map = dynamic(() => import("../components/MapBoxHereRMGL"), {
 });
 
 export default function Dashboard() {
-  const [refresh, setRefresh] = React.useState(false);
+  const [refresh, setRefresh] = React.useState(true);
   return (
     <>
       <Stack direction="column" sx={{ minHeight: "100vh" }}>
