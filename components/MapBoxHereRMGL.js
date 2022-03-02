@@ -80,7 +80,7 @@ const MapBoxHere = ({ refresh, setRefresh }) => {
   useEffect(() => socketInitializer(), []);
 
   const socketInitializer = async () => {
-    socket = io("ws://websocket-any.herokuapp.com/");
+    socket = io("http://websocket-any.herokuapp.com/");
 
     socket.on("connect", () => {
       console.log("connected");
