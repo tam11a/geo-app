@@ -12,6 +12,7 @@ import { AiOutlineUser } from "react-icons/ai";
 import { SiHashnode } from "react-icons/si";
 import { GiCargoCrane } from "react-icons/gi";
 import dynamic from "next/dynamic";
+import React from "react";
 
 const Map = dynamic(() => import("../components/MapBoxHereRMGL"), {
   loading: () => "Loading...",
@@ -19,6 +20,7 @@ const Map = dynamic(() => import("../components/MapBoxHereRMGL"), {
 });
 
 export default function Dashboard() {
+  const [refresh, setRefresh] = React.useState(false);
   return (
     <>
       <Stack direction="column" sx={{ minHeight: "100vh" }}>
@@ -31,7 +33,7 @@ export default function Dashboard() {
             },
           }}
         >
-          <Map />
+          <Map refresh={refresh} setRefresh={setRefresh} />
         </Box>
         <Stack
           flexDirection={"row"}
@@ -62,7 +64,7 @@ export default function Dashboard() {
             </Button>
           </Tooltip>
           <Tooltip title="Share My Location">
-            <IconButton color="primary">
+            <IconButton color="primary" onClick={() => setRefresh(true)}>
               <MdMyLocation />
             </IconButton>
           </Tooltip>

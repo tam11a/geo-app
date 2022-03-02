@@ -13,7 +13,7 @@ import { DEFAULT_VIEWPORT } from "../utilities/constants";
 import io from "socket.io-client";
 let socket;
 
-const MapBoxHere = () => {
+const MapBoxHere = ({ refresh, setRefresh }) => {
   const [coordinates, setCoordinates] = useState([]);
   const [viewport, setViewport] = useState(DEFAULT_VIEWPORT);
   const [resList, setResList] = useState([]);
@@ -35,9 +35,13 @@ const MapBoxHere = () => {
     const data = await res.json();
     setResList(data.geolist);
   }
+
   useEffect(() => {
-    fetchData();
-  }, []);
+    if (refresh) {
+      fetchData();
+      setRefresh(false);
+    }
+  }, [refresh]);
 
   useEffect(() => {
     // if(!!!resList)
@@ -76,7 +80,7 @@ const MapBoxHere = () => {
   useEffect(() => socketInitializer(), []);
 
   const socketInitializer = async () => {
-    socket = io("https://websocket-any.herokuapp.com/");
+    socket = io("ws://websocket-any.herokuapp.com/");
 
     socket.on("connect", () => {
       console.log("connected");
