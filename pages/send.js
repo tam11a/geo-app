@@ -1,4 +1,4 @@
-import { useRouter } from "next/router";
+/*import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 
 import io from "Socket.IO-client";
@@ -30,3 +30,4 @@ const send = () => {
 };
 
 export default send;
+*/
