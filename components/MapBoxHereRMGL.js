@@ -31,10 +31,13 @@ const MapBoxHere = () => {
     ],
   });
 
-  useEffect(async () => {
-    const res = await fetch("/api/dummy");
-    const data = await res.json();
-    setResList(data.geolist);
+  useEffect(() => {
+    async function fetchData() {
+      const res = await fetch("/api/dummy");
+      const data = await res.json();
+      setResList(data.geolist);
+    }
+    fetchData();
   }, []);
 
   useEffect(() => {
