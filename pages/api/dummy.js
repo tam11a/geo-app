@@ -1,7 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
 import { getDB, pushDB } from "./db";
-import io from "Socket.IO-client";
+import io from "socket.io-client";
 let socket;
 
 socket = io("http://websocket-any.herokuapp.com/");

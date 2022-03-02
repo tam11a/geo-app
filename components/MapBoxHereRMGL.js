@@ -10,7 +10,7 @@ import MarkerPin from "./MarkerPin";
 import BottomDrawer from "./BottomDrawer";
 import { DEFAULT_VIEWPORT } from "../utilities/constants";
 
-import io from "Socket.IO-client";
+import io from "socket.io-client";
 let socket;
 
 const MapBoxHere = () => {
